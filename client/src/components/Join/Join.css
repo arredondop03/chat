@@ -1,0 +1,77 @@
+.join-container {
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    height: 100vh;
+}
+
+.shape {
+    position: absolute;
+    z-index: -1;
+}
+
+.shape-left {
+    margin-bottom: -250px;
+    margin-left: -200px;
+    width: 700px;
+    bottom: 0;
+    left:0;
+}
+
+.shape-right {
+    transform: rotate(-41deg);
+    margin-right: -300px;
+    margin-top: -400px;
+    width: 1000px;
+    right: 0;
+    top: 0;
+}
+
+.join-left-container {
+    width: 350px;
+}
+
+.join-input {
+    box-shadow: 10px 10px 22px #4c4c4c38;
+    border-radius: 50px;
+    font-size: 18px;
+    margin: 9px 0;
+    padding: 16px;
+    outline: none;
+    border: none;
+    width: 100%;
+}
+
+.join-input:focus{
+    border: solid 2px #9F86C0;
+}
+
+.join-button {
+    box-shadow: 10px 10px 22px #4c4c4c38;
+    background-color: #EE7A65;
+    margin: 20px 0 5px 0;
+    border-radius: 50px;
+    font-size: 18px;
+    color: white;
+    padding: 15px;
+    outline: none;
+    border: none;
+    width: 100%;
+}
+
+.join-button:hover, .join-button:focus{
+    background-color: #9F86C0;
+}
+
+.button-outline {
+    outline: none;
+}
+
+.join-header {
+    font-family: 'Raleway Dots', cursive;
+    text-align: center;
+    color: #455a63;
+    font-size: 40px;
+}

@@ -5,6 +5,8 @@ import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
 import Messages from '../Messages/Messages';
 
+import './Chat.css'
+
 //TODO: check that all classNames have hyphen
 //TODO: deploy 1:45:00
 //TODO: check emojis
@@ -54,7 +56,7 @@ const Chat = ({ location }) => {
     console.log(message, messages)
 
     return (
-        <div>
+        <div className="background">
             <h1>Chat</h1>
             <div>
                 <InfoBar room={room}/>

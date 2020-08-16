@@ -11,6 +11,8 @@ import './Chat.css'
 //TODO: deploy 1:45:00
 //TODO: check emojis
 //TODO: Show users in chat
+//TODO: create own normalize css
+
 
 
 let socket;
@@ -57,7 +59,6 @@ const Chat = ({ location }) => {
 
     return (
         <div className="background">
-            <h1>Chat</h1>
             <div>
                 <InfoBar room={room}/>
                 <Messages messages={messages} name={name}/>

@@ -5,7 +5,7 @@ import './Join.css'
 
 import youthIlustration from '../../assets/friends.svg';
 import shape from '../../assets/shape-1.svg';
-{/* <a href='https://www.freepik.com/vectors/social-media'>Social media vector created by stories - www.freepik.com</a> */ }
+// <a href='https://www.freepik.com/vectors/social-media'>Social media vector created by stories - www.freepik.com</a> 
 // abstract <a href='https://www.freepik.com/vectors/banner'>Banner vector created by freepik - www.freepik.com</a>
 const Join = () => {
     const [name, setName] = useState('');
@@ -13,10 +13,10 @@ const Join = () => {
 
     return (
         <div className="join-container">
-            <img src={shape} className="shape shape-right" />
-            <img src={shape} className="shape shape-left" />
+            <img src={shape} className="shape shape-right" alt="decorative shape"/>
+            <img src={shape} className="shape shape-left" alt="decorative shape"/>
             <div className="join-right-container">
-                <img src={youthIlustration} />
+                <img alt="people texting each other" src={youthIlustration} />
             </div>
             <div className="join-left-container">
                 <h1 className="join-header">Start chatting!</h1>

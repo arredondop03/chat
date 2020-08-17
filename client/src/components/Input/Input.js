@@ -14,7 +14,7 @@ const Input = ({message, setMessage, sendMessage}) => (
             onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
             placeholder="Type a message..."
         />
-        <button className="input-send-button" onClick={(event)=> sendMessage(event)}><img className="input-send-image" src={sendIcon}/></button>
+        <button className="input-send-button" onClick={(event)=> sendMessage(event)}><img className="input-send-image" src={sendIcon} alt="send-button"/></button>
     </form>
 );
 

@@ -1,0 +1,21 @@
+.message-container {
+max-width: 40%;
+    margin-bottom: 5px;
+}
+
+.message-box {
+    background-attachment: fixed;
+    background-color:#7CD7D2;
+    background-image: linear-gradient( #A7EFEB ,#9F86C0 );
+    padding: 13px;
+    display: flex;
+    border-radius: 20px;
+}
+
+.message-user-container {
+margin-left: auto;
+}
+
+.message-user-name {
+text-align: right;
+}

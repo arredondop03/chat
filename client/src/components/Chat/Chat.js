@@ -24,29 +24,21 @@ const Chat = ({ location }) => {
     const [message, setMessage] = useState('');
     const ENDPOINT = 'localhost:5000';
 
+    
+
     useEffect(() => {
         const { room, name } = queryString.parse(location.search);
-
-        socket = io(ENDPOINT);
-
         setName(name);
         setRoom(room);
-        socket.emit('join', { name, room }, () => {
-        })
+
+        socket = io(ENDPOINT);
+        socket.on('message', messageFrom => setMessages([...messages, messageFrom]));
 
         return () => {
             socket.emit('disconnect')
-
             socket.off()
         }
-    }, [ENDPOINT, location.search])
-
-    useEffect(() => {
-        socket.on('message', (message) => {
-            setMessages([...messages, message])
-
-        })
-    }, [messages]);
+    }, []);
 
     const sendMessage = (event) => {
         event.preventDefault()

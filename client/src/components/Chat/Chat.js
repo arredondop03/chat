@@ -48,25 +48,20 @@ const Chat = ({ location }) => {
         })
     }, [messages]);
 
-    const sendMessage = (event ) => {
+    const sendMessage = (event) => {
         event.preventDefault()
-        if(message) {
-            socket.emit('sendMessage', message, ()=> setMessage(''))
+        if (message) {
+            socket.emit('sendMessage', message, () => setMessage(''))
         }
     }
 
     console.log(message, messages)
 
     return (
-        <div className="background">
-            <div>
-                <InfoBar room={room}/>
-                <Messages messages={messages} name={name}/>
-                <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
-
-
-            </div>
-
+        <div className="chat-container">
+            <InfoBar room={room} />
+            <Messages messages={messages} name={name} />
+            <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
         </div>
     )
 }

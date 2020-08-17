@@ -1,0 +1,10 @@
+.chat-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-input-container{
+    margin-top: auto;
+    /* align-self: flex-end; */
+}

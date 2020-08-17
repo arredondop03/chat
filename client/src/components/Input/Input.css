@@ -1,0 +1,39 @@
+.input-container {
+    margin-top: auto;
+    padding: 10px 60px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.input-area {
+    background-color: #F2F2F2;
+    border: none;
+    border-radius: 50px;
+    width: 95%;
+    padding: 15px;
+    outline: none;
+}
+
+.input-send-button {
+    border: none;
+    background-color: #EE7A65;
+    border-radius: 50px;
+    padding: 0 9px;
+    outline: none;
+}
+
+.input-send-button:focus {
+    background-color: #9F86C0;
+}
+
+.input-send-image {
+    height: 30px;
+    position: relative;
+    right: 2px;
+}
+
+.input-area:focus{
+    border: solid 2px #9F86C0;
+    padding: 13px;
+}

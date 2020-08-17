@@ -1,8 +1,8 @@
 .messages-container {
-    height: 100%;
+    justify-content: flex-end;
+    flex-direction: column;
     padding: 20px 60px;
     overflow: scroll;
-    justify-content: flex-end;
     display: flex;
-    flex-direction: column;
+    height: 100%;
 }

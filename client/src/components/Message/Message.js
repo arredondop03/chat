@@ -14,7 +14,7 @@ const Message = ({ message: { text, user }, name }) => {
             <div className="message-box">
                 <p>{text}</p>
             </div>
-            <p className={isSentByCurrentUser && "message-user-name"}>{isSentByCurrentUser ? trimmedName : user}</p>
+            <p className={isSentByCurrentUser ? "message-user-name" : "message-friend-name"}>{isSentByCurrentUser ? trimmedName : user}</p>
         </div>
     )
 };

@@ -20,7 +20,7 @@ const Join = () => {
             </div>
             <div className="join-left-container">
                 <h1 className="join-header">Start chatting!</h1>
-                <input placeholder="Name" className="join-input" type="text" onChange={(event) => setName(event.target.value)} />
+                <input placeholder="Username" className="join-input" type="text" onChange={(event) => setName(event.target.value)} />
                 <input placeholder="Room" className="join-input" type="text" onChange={(event) => setRoom(event.target.value)} />
                 <Link className="button-outline" onClick={event => (!name || !room) ? event.preventDefault() : null} to={`/chat?name=${name}&room=${room}`}>
                     <button className="join-button" type="submit"> Sign in </button>

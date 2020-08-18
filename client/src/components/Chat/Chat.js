@@ -7,7 +7,6 @@ import Messages from '../Messages/Messages';
 
 import './Chat.css'
 
-//TODO: check that all classNames have hyphen
 //TODO: deploy 1:45:00
 //TODO: check emojis
 //TODO: Show users in chat

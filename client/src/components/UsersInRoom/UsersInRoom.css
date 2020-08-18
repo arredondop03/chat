@@ -1,0 +1,28 @@
+.users-container {
+    background-color: white;
+    z-index: 200;
+    height: 100%;
+}
+
+.users-header {
+    padding: 28px;
+    height: 78px;
+}
+
+.users-list {
+    height: calc(100% - 78px);
+    overflow: scroll;
+}
+
+.user-in-chat {
+    padding: 28px;
+    margin-right: -1px;
+}
+
+.user-in-chat:nth-child(even) {
+    background-color: #9f86c059;
+}
+
+.user-in-chat:nth-child(odd) {
+    background-color: #a7efeb6e;
+}

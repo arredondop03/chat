@@ -1,7 +1,19 @@
-.chat-container{
+.chat-shell{
     height: 100%;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+}
+
+.chat-users-container{
+width: 300px;
+z-index: 200;
+border-right: solid 1px #ececec;
+}
+
+.chat-container {
+width: 100%;
+display: flex;
+flex-direction: column;
 }
 
 .chat-input-container{

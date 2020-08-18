@@ -31,7 +31,8 @@ const Chat = ({ location }) => {
         setRoom(room);
 
         socket = io(ENDPOINT);
-        socket.on('message', messageFrom => setMessages([...messages, messageFrom]));
+        socket.emit('join', {name, room}, () => {});
+        socket.on('message', messageFrom => setMessages(messages => [ ...messages,messageFrom]));
 
         return () => {
             socket.emit('disconnect')

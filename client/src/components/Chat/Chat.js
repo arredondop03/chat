@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
 import Messages from '../Messages/Messages';
+import UsersInRoom from '../UsersInRoom/UsersInRoom';
 
 import './Chat.css'
 
@@ -21,6 +22,7 @@ const Chat = ({ location }) => {
     const [room, setRoom] = useState('');
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
+    const [usersInRoom, setUsersInRoom] = useState({});
     const ENDPOINT = 'localhost:5000';
 
     
@@ -32,13 +34,13 @@ const Chat = ({ location }) => {
 
         socket = io(ENDPOINT);
         socket.emit('join', {name, room}, () => {});
-        socket.on('message', messageFrom => setMessages(messages => [ ...messages,messageFrom]));
-
+        socket.on('message', messageFromServer => setMessages(messages => [ ...messages,messageFromServer]));
+        socket.on('roomData', usersFromServer => setUsersInRoom(usersFromServer))
         return () => {
             socket.emit('disconnect')
             socket.off()
         }
-    }, []);
+    },[location.search]);
 
     const sendMessage = (event) => {
         event.preventDefault()
@@ -49,6 +51,7 @@ const Chat = ({ location }) => {
 
     return (
         <div className="chat-container">
+            <UsersInRoom usersInRoom={usersInRoom.users} />
             <InfoBar room={room} />
             <Messages messages={messages} name={name} />
             <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />

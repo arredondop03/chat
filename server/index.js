@@ -16,7 +16,6 @@ const io = socketio(server);
 io.on('connection', (socket) => {
 
     socket.on('join', ({name, room}, callback) => {
-        console.log('name and room',name, room)
         const {error, user} = addUser({id: socket.id, name, room});
 
         if(error) return callback(error);
@@ -28,7 +27,6 @@ io.on('connection', (socket) => {
 
         io.to(user.room).emit('roomData', {room: user.room, users: getUsersInRoom(user.room)});
         callback()
-
     })
 
     socket.on('sendMessage', (message, callback) => {
@@ -44,6 +42,8 @@ io.on('connection', (socket) => {
         const user = removeUser(socket.id);
         if(user) {
             io.to(user.room).emit('message', {user:'admin', text:`${user.name} has left`});
+        io.to(user.room).emit('roomData', {room: user.room, users: getUsersInRoom(user.room)})
+
         }
     })
 })

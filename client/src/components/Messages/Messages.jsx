@@ -1,5 +1,6 @@
 import React from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
+import PropTypes from 'prop-types';
 
 import Message from '../Message/Message';
 
@@ -12,3 +13,11 @@ const Messages = ({ messages, name }) => (
 );
 
 export default Messages;
+
+Messages.propTypes = {
+  messages: PropTypes.arrayOf(PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
+  })).isRequired,
+  name: PropTypes.string.isRequired,
+};

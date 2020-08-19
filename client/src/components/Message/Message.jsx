@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Message.css';
 
@@ -20,3 +21,11 @@ const Message = ({ message: { text, user }, name }) => {
 };
 
 export default Message;
+
+Message.propTypes = {
+  message: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
+  }).isRequired,
+  name: PropTypes.string.isRequired,
+};

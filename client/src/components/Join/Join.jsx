@@ -5,8 +5,10 @@ import './Join.css';
 
 import youthIlustration from '../../assets/friends.svg';
 import shape from '../../assets/shape-1.svg';
-// <a href='https://www.freepik.com/vectors/social-media'>Social media vector created by stories - www.freepik.com</a> 
+
+// <a href='https://www.freepik.com/vectors/social-media'>Social media vector created by stories - www.freepik.com</a>
 // abstract <a href='https://www.freepik.com/vectors/banner'>Banner vector created by freepik - www.freepik.com</a>
+
 const Join = () => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');

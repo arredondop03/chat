@@ -1,4 +1,5 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 
 import './UsersInRoom.css';
 
@@ -12,3 +13,15 @@ const UsersInRoom = ({ usersInRoom }) => (
 );
 
 export default UsersInRoom;
+
+UsersInRoom.propTypes = {
+  usersInRoom: Proptypes.arrayOf(Proptypes.shape({
+    id: Proptypes.string.isRequired,
+    name: Proptypes.string.isRequired,
+    room: Proptypes.string.isRequired,
+  })),
+};
+
+UsersInRoom.defaultProps = {
+  usersInRoom: [],
+};

@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
+import PropTypes from 'prop-types';
 import './InfoBar.css';
 
 const InfoBar = ({ room }) => (
@@ -10,3 +11,7 @@ const InfoBar = ({ room }) => (
 );
 
 export default InfoBar;
+
+InfoBar.propTypes = {
+  room: PropTypes.string.isRequired,
+};

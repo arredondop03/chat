@@ -7,7 +7,7 @@ import Input from '../Input/Input';
 import Messages from '../Messages/Messages';
 import UsersInRoom from '../UsersInRoom/UsersInRoom';
 
-import './Chat.css'
+import './Chat.css';
 
 //  TODO: deploy 1:45:00
 //  TODO: check emojis
@@ -35,7 +35,7 @@ const Chat = ({ location }) => {
     socket.emit('join', { name, room }, () => { });
     socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
     socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));
-    console.log(location);
+
     return () => {
       socket.emit('disconnect');
       socket.off();

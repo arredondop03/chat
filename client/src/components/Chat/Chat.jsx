@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import queryString from 'query-string';
-import PropTypes from 'prop-types';
-import io from 'socket.io-client';
+import React, { useState, useEffect, useContext } from 'react';
 import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
 import Messages from '../Messages/Messages';
 import UsersInRoom from '../UsersInRoom/UsersInRoom';
+import { UserContext } from '../../context/UserContext';
+
 
 import './Chat.css';
 
@@ -15,37 +14,30 @@ import './Chat.css';
 //  Check quotation marks
 // TODO: /* eslint-disable react/jsx-one-expression-per-line */
 // querystring remove
+//TODO: chat => same name
+//TODO:refresh
 
-let socket;
-
-const Chat = ({ location }) => {
-  const [name, setName] = useState('');
-  const [room, setRoom] = useState('');
+const Chat = ({history}) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [usersInRoom, setUsersInRoom] = useState({});
-  const ENDPOINT = 'localhost:5000';
+
+  const context = useContext(UserContext);
 
   useEffect(() => {
-    const { room, name } = queryString.parse(location.search);
-    setName(name);
-    setRoom(room);
-
-    socket = io(ENDPOINT);
-    socket.emit('join', { name, room }, () => { });
-    socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
-    socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));
+        context.socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
+        context.socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));
 
     return () => {
-      socket.emit('disconnect');
-      socket.off();
+      context.socket.emit('disconnect');
+      context.socket.off();
     };
-  }, [location.search]);
+  }, []);
 
   const sendMessage = (event) => {
     event.preventDefault();
     if (message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
+      context.socket.emit('sendMessage', message, () => setMessage(''));
     }
   };
 
@@ -55,18 +47,12 @@ const Chat = ({ location }) => {
         <UsersInRoom usersInRoom={usersInRoom.users} />
       </div>
       <div className="chat-container">
-        <InfoBar room={room} />
-        <Messages messages={messages} name={name} />
+        <InfoBar room={context.room} />
+        <Messages messages={messages} name={context.name} />
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
     </div>
   );
-};
-
-Chat.propTypes = {
-  location: PropTypes.shape({
-    search: PropTypes.string,
-  }).isRequired,
 };
 
 export default Chat;

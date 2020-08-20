@@ -24,12 +24,10 @@ const Join = ({ history }) => {
     (!formName || !formRoom) && event.preventDefault();
     socket = io(ENDPOINT);
     socket.emit('join', { name: formName, room: formRoom }, () => { });
-    context.setSocket(socket)
+    context.setSocket(socket);
     context.setName(formName);
     context.setRoom(formRoom);
-    // location.pathname = "/chat";
-    history.push('/chat')
-    console.log(history)
+    history.push('/chat');
   };
 
   return (

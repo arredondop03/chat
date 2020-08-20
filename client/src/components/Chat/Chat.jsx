@@ -24,15 +24,21 @@ const Chat = ({history}) => {
 
   const context = useContext(UserContext);
 
-  useEffect(() => {
-        context.socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
-        context.socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));
+  useEffect (() => {
+    if(context.socket.hasOwnProperty('connected')) {
+      context.socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
+      context.socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));
+    } else {
+      history.goBack();
+    };
 
     return () => {
-      context.socket.emit('disconnect');
-      context.socket.off();
+      if(context.socket.connected) {
+        context.socket.emit('disconnect');
+        context.socket.off();
+      }
     };
-  }, []);
+  },[context.socket]);
 
   const sendMessage = (event) => {
     event.preventDefault();

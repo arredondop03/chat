@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { history } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 
 import './Join.css';
@@ -27,7 +27,6 @@ const Join = ({ history }) => {
     context.setSocket(socket);
     context.setName(formName);
     context.setRoom(formRoom);
-    history.push('/chat');
   };
 
   return (
@@ -41,7 +40,7 @@ const Join = ({ history }) => {
           <h1 className="join-header">Start chatting!</h1>
           <input placeholder="Username" className="join-input" type="text" onChange={(event) => setFormName(event.target.value)} />
           <input placeholder="Room" className="join-input" type="text" onChange={(event) => setFormRoom(event.target.value)} />
-            <button className="join-button" type="submit" onClick={(event)=> join(event)}> Sign in </button>
+          <Link className="join-button" onClick={(event)=> join(event)} to="/chat">Sign in</Link>
         </div>
       </div>
   );

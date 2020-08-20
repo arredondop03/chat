@@ -9,13 +9,8 @@ import { UserContext } from '../../context/UserContext';
 import './Chat.css';
 
 //  TODO: deploy 1:45:00
-//  TODO: check emojis
-//  TODO: Show users in chat
-//  Check quotation marks
 // TODO: /* eslint-disable react/jsx-one-expression-per-line */
-// querystring remove
-//TODO: chat => same name
-//TODO:refresh
+
 
 const Chat = ({history}) => {
   const [messages, setMessages] = useState([]);

@@ -2,9 +2,12 @@ module.exports = {
   env: {
     browser: true,
     es2020: true,
+    "jest/globals": true
   },
   extends: [
     'plugin:react/recommended',
+    "plugin:jest/recommended",
+    "plugin:jest/style",
     'airbnb',
   ],
   parserOptions: {
@@ -16,6 +19,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    'jest'
   ],
   rules: {
   },

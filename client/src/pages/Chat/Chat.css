@@ -20,3 +20,26 @@ flex-direction: column;
     margin-top: auto;
     /* align-self: flex-end; */
 }
+
+.info-bar{
+    display: flex;
+    padding: 20px 60px;
+    justify-content: space-between;
+    box-shadow: 0px 2px 7px #4c4c4c38;
+    align-items: center;
+    z-index: 100;
+}
+
+.info-button {
+    background-color: #EE7A65;
+    border-radius: 50px;
+    color: white;
+    padding: 10px 17px;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+.info-button:hover, .info-button:focus{
+    background-color: #9F86C0;
+}

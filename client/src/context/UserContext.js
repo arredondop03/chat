@@ -1,11 +1,10 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 
-export const UserContext = createContext({
+export default createContext({
   name: '',
   setName: () => {},
   room: '',
   setRoom: () => {},
   socket: {},
   setSocket: () => {},
-
 });

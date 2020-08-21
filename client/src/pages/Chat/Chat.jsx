@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import InfoBar from '../InfoBar/InfoBar';
-import Input from '../Input/Input';
-import Messages from '../Messages/Messages';
-import UsersInRoom from '../UsersInRoom/UsersInRoom';
+import InfoBar from '../../components/InfoBar/InfoBar';
+import Input from '../../components/Input/Input';
+import Messages from '../../components/Messages/Messages';
+import UsersInRoom from '../../components/UsersInRoom/UsersInRoom';
 import { UserContext } from '../../context/UserContext';
 
 

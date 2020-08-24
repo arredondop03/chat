@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import './Message.css';
 
-const Message = ({ message: { text, user }, name }) => {
+const Message = ({ message: { text, sender }, currentUser }) => {
   let isSentByCurrentUser = false;
-  const trimmedName = name.trim().toLowerCase();
-  if (user === trimmedName) {
+  const trimmedCurrentUser = currentUser.trim().toLowerCase();
+  if (sender === trimmedCurrentUser) {
     isSentByCurrentUser = true;
   }
 
@@ -15,7 +15,7 @@ const Message = ({ message: { text, user }, name }) => {
       <div className="message-box">
         <p>{text}</p>
       </div>
-      <p className={isSentByCurrentUser ? 'message-user-name' : 'message-friend-name'}>{isSentByCurrentUser ? trimmedName : user}</p>
+      <p className={isSentByCurrentUser ? 'message-user-name' : 'message-friend-name'}>{isSentByCurrentUser ? trimmedCurrentUser : sender}</p>
     </div>
   );
 };
@@ -25,7 +25,7 @@ export default Message;
 Message.propTypes = {
   message: PropTypes.shape({
     text: PropTypes.string.isRequired,
-    user: PropTypes.string.isRequired,
+    sender: PropTypes.string.isRequired,
   }).isRequired,
-  name: PropTypes.string.isRequired,
+  currentUser: PropTypes.string.isRequired,
 };

@@ -55,7 +55,7 @@ const Chat = ({ history }) => {
           <h3>Room {room}</h3>
           <Link to="/" className="info-button">Leave chat</Link>
         </div>
-        <Messages messages={messages} name={name} />
+        <Messages messages={messages} currentUser={name} />
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
     </div>

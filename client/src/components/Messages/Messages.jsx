@@ -21,7 +21,7 @@ export default Messages;
 Messages.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.string.isRequired,
-    user: PropTypes.string.isRequired,
+    sender: PropTypes.string.isRequired,
   })).isRequired,
   currentUser: PropTypes.string.isRequired,
 };

@@ -15,7 +15,7 @@ const Join = () => {
   let socket;
   const ENDPOINT = 'localhost:5000';
 
-  const [formName, setFormName] = useState('');
+  const [formName, setFormUsername] = useState('');
   const [formRoom, setFormRoom] = useState('');
 
   const context = useContext(UserContext);
@@ -41,8 +41,8 @@ const Join = () => {
       </div>
       <div className="join-left-container">
         <h1 className="join-header">Start chatting!</h1>
-        <input placeholder="Username" className="join-input" type="text" onChange={(event) => setFormName(event.target.value)} />
-        <input placeholder="Room" className="join-input" type="text" onChange={(event) => setFormRoom(event.target.value)} />
+        <input placeholder="Username" id="username" className="join-input" type="text" onChange={(event) => setFormUsername(event.target.value)} />
+        <input placeholder="Room" id="room" className="join-input" type="text" onChange={(event) => setFormRoom(event.target.value)} />
         <Link className="join-button" onClick={(event) => join(event)} to="/chat">Sign in</Link>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 
@@ -15,16 +15,16 @@ const Join = () => {
   let socket;
   const ENDPOINT = 'localhost:5000';
 
-  const [formName, setFormUsername] = useState('');
-  const [formRoom, setFormRoom] = useState('');
+  const [formName, setFormUsername] = React.useState('');
+  const [formRoom, setFormRoom] = React.useState('');
 
   const context = useContext(UserContext);
 
   const join = (event) => {
     if (!formName || !formRoom) {
       event.preventDefault();
+      return;
     }
-    // !formName || !formRoom && event.preventDefault();
     socket = io(ENDPOINT);
     socket.emit('join', { name: formName, room: formRoom }, () => { });
     context.setSocket(socket);
@@ -41,7 +41,7 @@ const Join = () => {
       </div>
       <div className="join-left-container">
         <h1 className="join-header">Start chatting!</h1>
-        <input placeholder="Username" id="username" className="join-input" type="text" onChange={(event) => setFormUsername(event.target.value)} />
+        <input placeholder="Username" id="username" className="join-input" type="text" onChange={(event) => setFormUsername(event.target.value)} value={formName} />
         <input placeholder="Room" id="room" className="join-input" type="text" onChange={(event) => setFormRoom(event.target.value)} />
         <Link className="join-button" onClick={(event) => join(event)} to="/chat">Sign in</Link>
       </div>

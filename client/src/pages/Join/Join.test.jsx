@@ -2,8 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import io from 'socket.io-client';
 import Join from './Join';
+import UserContext from '../../context/UserContext';
 
 jest.mock('socket.io-client');
+jest.mock('../../context/UserContext');
 
 describe('Join', () => {
   it('renders without crashing', () => {
@@ -41,8 +43,10 @@ describe('Join', () => {
     expect(preventDefaultSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('joins socket on Link click', () => {
-    // Arrange
+  it('calls all functions inside join', () => {
+    const useContextSpy = jest.spyOn(React, 'useContext');
+    useContextSpy.mockImplementationOnce(() => UserContext);
+
     const mockEmit = jest.fn();
     io.mockImplementationOnce(() => ({ emit: mockEmit }));
 
@@ -59,7 +63,16 @@ describe('Join', () => {
     joinWrapper.find('Link').simulate('click', event);
 
     // Assert
+    expect(useContextSpy).toHaveBeenCalledWith(UserContext);
     expect(io).toHaveBeenCalledWith('localhost:5000');
     expect(mockEmit).toHaveBeenCalledWith('join', { name: 'paola', room: '4434' }, expect.any(Function));
+    expect(UserContext.setName).toHaveBeenCalledWith('paola');
+    expect(UserContext.setRoom).toHaveBeenCalledWith('4434');
+    expect(UserContext.setSocket).toHaveBeenCalledWith({ emit: mockEmit });
+
+    // clear mocks
+    useContextSpy.mockRestore();
+    useStateSpy.mockRestore();
+    io.mockRestore();
   });
 });

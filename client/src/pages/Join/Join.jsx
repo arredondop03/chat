@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 
@@ -18,7 +18,7 @@ const Join = () => {
   const [formName, setFormUsername] = React.useState('');
   const [formRoom, setFormRoom] = React.useState('');
 
-  const context = useContext(UserContext);
+  const context = React.useContext(UserContext);
 
   const join = (event) => {
     if (!formName || !formRoom) {

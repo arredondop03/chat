@@ -125,14 +125,18 @@
     }
     .join-input {
         font-size: 14px;
-        padding: 10px;
+        padding: 15px 10px;
+    }
+    .join-input:focus{
+        border: solid 2px #9F86C0;
+        padding: 13px 8px;
     }
     .join-header {
         font-size: 28px;
     }
     .join-button {
         font-size: 14px;
-        padding: 10px;
+        padding: 15px 10px;
     }
     .shape-right {
         margin-right: -300px;

@@ -5,8 +5,14 @@
 }
 
 .users-header {
-    padding: 28px;
-    height: 78px;
+    font-size: 1.2em;
+}
+
+.users-header-container {
+    align-items: center;
+    padding: 0 28px;
+    display: flex;
+    height: 80px;
 }
 
 .users-list {
@@ -15,14 +21,15 @@
 }
 
 .user-in-chat {
-    padding: 28px;
     margin-right: -1px;
+    font-size: 1em;
+    padding: 28px;
 }
 
 .user-in-chat:nth-child(even) {
-    background-color: #9f86c059;
+    background-color: #DCD5E8;
 }
 
 .user-in-chat:nth-child(odd) {
-    background-color: #a7efeb6e;
+    background-color: #E0F7F6;
 }

@@ -19,9 +19,21 @@
     text-align: right;
     margin-right: 13px;
     margin-top: 5px;
+    font-size: 1em;
 }
 
 .message-friend-name{
     margin-left: 13px;
     margin-top: 5px;
+    font-size: 1em;
+}
+
+.message {
+    font-size: 1em;
+}
+
+@media(max-width: 800px) {
+    .message-container {
+        max-width: 80%;
+    }
 }

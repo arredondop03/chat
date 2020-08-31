@@ -13,11 +13,13 @@ import './Chat.css';
 //  TODO: deploy 1:45:00
 // TODO: /* eslint-disable react/jsx-one-expression-per-line */
 // TODO: pageobject for testing, beforeEach, afterEach
+// TODO: admin not showing after first message
 
 const Chat = ({ history }) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [usersInRoom, setUsersInRoom] = useState({});
+  const [isShowingUsers, setIsShowingUsers] = useState(false);
 
   const context = useContext(UserContext);
   const { socket, room, name } = context;
@@ -47,13 +49,26 @@ const Chat = ({ history }) => {
 
   return (
     <div className="chat-shell">
-      <div className="chat-users-container">
+      <div className={`chat-users-container ${isShowingUsers && 'show-users'}`}>
         <UsersInRoom usersInRoom={usersInRoom.users} />
       </div>
+      <div
+        className={isShowingUsers && 'overlay'}
+        onClick={() => setIsShowingUsers(!isShowingUsers)}
+        onKeyPress={() => setIsShowingUsers(!isShowingUsers)}
+        role="button"
+        tabIndex="0"
+        aria-label="overlay, press to hide users"
+      />
       <div className="chat-container">
         <div className="info-bar">
-          <h3>Room {room}</h3>
-          <Link to="/" className="info-button">Leave chat</Link>
+          <h3 className="info-bar-header">Room {room}</h3>
+          <div>
+            <button className="button users-button" onClick={() => setIsShowingUsers(!isShowingUsers)} type="button">
+              { isShowingUsers ? 'Hide users' : 'Show users'}
+            </button>
+            <Link to="/" className="button info-button">Leave chat</Link>
+          </div>
         </div>
         <Messages messages={messages} currentUser={name} />
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />

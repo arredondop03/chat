@@ -11,6 +11,7 @@
     border-radius: 50px;
     width: 95%;
     padding: 15px;
+    font-size: 1em;
     outline: none;
 }
 
@@ -20,6 +21,7 @@
     border-radius: 50px;
     padding: 0 9px;
     outline: none;
+    margin-left: 8px;
 }
 
 .input-send-button:focus {
@@ -35,4 +37,10 @@
 .input-area:focus{
     border: solid 2px #9F86C0;
     padding: 13px;
+}
+
+@media(max-width: 760px) {
+    .input-container {
+        padding: 20px;
+    }
 }

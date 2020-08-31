@@ -13,7 +13,7 @@ const Message = ({ message: { text, sender }, currentUser }) => {
   return (
     <div className={`message-container ${isSentByCurrentUser && 'message-user-container'}`}>
       <div className="message-box">
-        <p>{text}</p>
+        <p className="message">{text}</p>
       </div>
       <p className={isSentByCurrentUser ? 'message-user-name' : 'message-friend-name'}>{isSentByCurrentUser ? trimmedCurrentUser : sender}</p>
     </div>

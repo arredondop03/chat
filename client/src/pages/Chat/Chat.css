@@ -96,6 +96,26 @@ flex-direction: column;
     }
 }
 
+@media(min-width: 320px) {
+    .info-bar{
+        padding: 12px;
+    }
+}
+@media(min-width: 280px) {
+    .info-bar-header {
+        font-size: 1em;
+    }
+    .users-button {
+        font-size: 0.8em;
+    }
+    .info-button {
+        font-size: 0.8em;
+    }
+    .button {
+        padding: 6px 9px;
+    }
+}
+
 .show-users {
     top: 0px; 
     transition: top 0.5s;

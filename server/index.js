@@ -51,4 +51,7 @@ io.on('connection', (socket) => {
 })
 
 app.use(router)
+if (process.env.NODE_ENV === 'production') {
+app.use(express.static('../client/build'))
+} 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));

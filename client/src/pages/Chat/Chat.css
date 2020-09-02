@@ -96,12 +96,12 @@ flex-direction: column;
     }
 }
 
-@media(min-width: 320px) {
+@media(max-width: 320px) {
     .info-bar{
         padding: 12px;
     }
 }
-@media(min-width: 280px) {
+@media(max-width: 280px) {
     .info-bar-header {
         font-size: 1em;
     }

@@ -2,6 +2,7 @@ const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
 const crypto = require("crypto");
+const path = require('path');
 
 const { addUser, removeUser, getUser, getUsersInRoom} = require('./users');
 
@@ -54,8 +55,8 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 }
 
-app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+app.get('/*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 // app.use(router)
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));

@@ -10,50 +10,51 @@ import UserContext from '../../context/UserContext';
 
 import './Chat.css';
 
-//  TODO: deploy 1:45:00
-// TODO: /* eslint-disable react/jsx-one-expression-per-line */
-// TODO: pageobject for testing, beforeEach, afterEach
-// TODO: admin not showing after first message
+// //  TODO: deploy 1:45:00
+// // TODO: /* eslint-disable react/jsx-one-expression-per-line */
+// // TODO: pageobject for testing, beforeEach, afterEach
+// // TODO: admin not showing after first message
 
 const Chat = ({ history }) => {
-  const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
-  const [usersInRoom, setUsersInRoom] = useState({});
-  const [isShowingUsers, setIsShowingUsers] = useState(false);
+//   const [messages, setMessages] = useState([]);
+//   const [message, setMessage] = useState('');
+//   const [usersInRoom, setUsersInRoom] = useState({});
+//   const [isShowingUsers, setIsShowingUsers] = useState(false);
 
-  const context = useContext(UserContext);
-  const { socket, room, name } = context;
+//   const context = useContext(UserContext);
+//   const { socket, room, name } = context;
 
-  useEffect(() => {
-    if (Object.prototype.hasOwnProperty.call(socket, 'connected')) {
-      socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
-      socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));
-    } else {
-      history.goBack();
-    }
+//   useEffect(() => {
+//     if (Object.prototype.hasOwnProperty.call(socket, 'connected')) {
+//       socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
+//       socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));
+//     } else {
+//       history.goBack();
+//     }
 
-    return () => {
-      if (socket.connected) {
-        socket.emit('disconnect');
-        socket.off();
-      }
-    };
-  }, [history, socket]);
+//     return () => {
+//       if (socket.connected) {
+//         socket.emit('disconnect');
+//         socket.off();
+//       }
+//     };
+//   }, [history, socket]);
 
-  useEffect(()=> {
-console.log(messages)
-  }, [messages])
+//   useEffect(()=> {
+// console.log(messages)
+//   }, [messages])
 
-  const sendMessage = (event) => {
-    event.preventDefault();
-    if (message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
-    }
-  };
+//   const sendMessage = (event) => {
+//     event.preventDefault();
+//     if (message) {
+//       socket.emit('sendMessage', message, () => setMessage(''));
+//     }
+//   };
 
   return (
     <div className="chat-shell">
-      <div className={`chat-users-container ${isShowingUsers ? 'show-users' : ''}`}>
+      chat
+      {/* <div className={`chat-users-container ${isShowingUsers ? 'show-users' : ''}`}>
         <UsersInRoom usersInRoom={usersInRoom.users} />
       </div>
       <div
@@ -76,7 +77,7 @@ console.log(messages)
         </div>
         <Messages messages={messages} currentUser={name} />
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
-      </div>
+      </div> */}
     </div>
   );
 };

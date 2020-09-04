@@ -38,7 +38,11 @@ const Chat = ({ history }) => {
         socket.off();
       }
     };
-  }, [socket]);
+  }, [history, socket]);
+
+  useEffect(()=> {
+console.log(messages)
+  }, [messages])
 
   const sendMessage = (event) => {
     event.preventDefault();

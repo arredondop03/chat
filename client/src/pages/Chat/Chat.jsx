@@ -10,10 +10,8 @@ import UserContext from '../../context/UserContext';
 
 import './Chat.css';
 
-// //  TODO: deploy 1:45:00
 // // TODO: /* eslint-disable react/jsx-one-expression-per-line */
 // // TODO: pageobject for testing, beforeEach, afterEach
-// // TODO: admin not showing after first message
 
 const Chat = ({ history }) => {
   const [messages, setMessages] = useState([]);
@@ -25,7 +23,7 @@ const Chat = ({ history }) => {
   const { socket, room, name } = context;
 
   useEffect(() => {
-    if (Object.prototype.hasOwnProperty.call(socket, 'connected')) {
+    if (socket.connected) {
       socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
       socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));
     } else {
@@ -39,10 +37,6 @@ const Chat = ({ history }) => {
       }
     };
   }, [history, socket]);
-
-  useEffect(()=> {
-console.log(messages)
-  }, [messages])
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -88,38 +82,3 @@ Chat.propTypes = {
     goBack: PropTypes.func,
   }).isRequired,
 };
-
-// import React from 'react';
-// import { shallow } from 'enzyme';
-// import InfoBar from './InfoBar';
-
-// describe('InfoBar', () => {
-//   it('renders without crashing', () => {
-//     const wrapper = shallow(<InfoBar room="1" />);
-//     expect(wrapper).toHaveLength(1);
-//   });
-
-//   it('displays header correctly', () => {
-//     const possibleCases = [
-//       'Paola\'s room',
-//       '1234567890',
-//       'abcdefghijklmnopqrstuvwxyzñ',
-//       // eslint-disable-next-line no-template-curly-in-string
-//       '${hey}',
-//       '!@#$%^&*()_+',
-//       '<script>alert("hey");</script>',
-//       '    ',
-//     ];
-//     possibleCases.forEach((possibleCase) => {
-//       const wrapper = shallow(<InfoBar room={possibleCase} />);
-//       const header = wrapper.find('h3');
-//       expect(header.text()).toEqual(`Room ${possibleCase}`);
-//     });
-//   });
-
-//   // it('should redirect to home page when "Leave chat" button was clicked', () => {
-//   //   const wrapper = shallow(<InfoBar room="1" />);
-//   //   console.log(window.location)
-//   //   // wrapper.find('Link').simulate('click');
-//   // });
-// });

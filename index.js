@@ -1,5 +1,6 @@
 const express = require('express');
 const socketio = require('socket.io');
+const compression = require('compression');
 const http = require('http');
 const crypto = require("crypto");
 const path = require('path');
@@ -14,6 +15,8 @@ const { callbackify } = require('util');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
+
+app.use(compression());
 
 io.on('connection', (socket) => {
 

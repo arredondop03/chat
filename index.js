@@ -1,6 +1,5 @@
 const express = require('express');
 const socketio = require('socket.io');
-const compression = require('compression');
 const http = require('http');
 const crypto = require("crypto");
 const path = require('path');
@@ -16,15 +15,13 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-app.use(compression());
-
 io.on('connection', (socket) => {
 
     socket.on('join', ({name, room}, callback) => {
         const {error, user} = addUser({id: socket.id, name, room});
         const id = crypto.randomBytes(16).toString("hex");
-
         if(error) return callback(error);
+        console.log('cvfc')
 
         socket.emit('message', {id: id, sender: 'admin', text: `${user.name}, welcome to room ${user.room}`})
         socket.broadcast.to(user.room).emit('message', {id: id, sender: 'admin', text: `${user.name} has joined`});
@@ -56,10 +53,10 @@ io.on('connection', (socket) => {
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
+    app.get('/*', (request, response) => {
+        response.sendFile(path.join(__dirname, 'client/build/index.html'));
+    });
 }
 
-app.get('/*', (request, response) => {
-	response.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
-// app.use(router)
+app.use(router)
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));

@@ -13,7 +13,7 @@ import shape from '../../assets/shape-1.svg';
 
 const Join = () => {
   let socket;
-  const ENDPOINT = window.location.origin;
+  const ENDPOINT = 'localhost:5000' || window.location.origin;
 
   const [formName, setFormUsername] = React.useState('');
   const [formRoom, setFormRoom] = React.useState('');
@@ -26,7 +26,8 @@ const Join = () => {
       return;
     }
     socket = io(ENDPOINT);
-    socket.emit('join', { name: formName, room: formRoom }, (error) => { if(error) console.log(error)});
+    console.log(socket)
+    socket.emit('join', { name: formName, room: formRoom }, (error) => { if (error) console.log(error); });
     context.setSocket(socket);
     context.setName(formName);
     context.setRoom(formRoom);

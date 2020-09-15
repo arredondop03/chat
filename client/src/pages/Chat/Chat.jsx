@@ -10,7 +10,7 @@ import UserContext from '../../context/UserContext';
 
 import './Chat.css';
 
-// // TODO: /* eslint-disable react/jsx-one-expression-per-line */
+// TODO: /* eslint-disable react/jsx-one-expression-per-line */
 // // TODO: pageobject for testing, beforeEach, afterEach
 
 const Chat = ({ history }) => {
@@ -23,12 +23,15 @@ const Chat = ({ history }) => {
   const { socket, room, name } = context;
 
   useEffect(() => {
-    if (socket.connected) {
+    // if (socket.connected === true) {
+      console.log(socket)
       socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
       socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));
-    } else {
-      history.goBack();
-    }
+    // } else {
+      // console.log('ede')
+      // history.push('/')
+      // history.goBack();
+    // }
 
     return () => {
       if (socket.connected) {
@@ -37,6 +40,11 @@ const Chat = ({ history }) => {
       }
     };
   }, [history, socket]);
+
+
+  useEffect(() => {
+console.log(messages)
+  }, messages)
 
   const sendMessage = (event) => {
     event.preventDefault();

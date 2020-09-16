@@ -14,6 +14,7 @@ import shape from '../../assets/shape-1.svg';
 const Join = () => {
   let socket;
   const ENDPOINT = 'localhost:5000' || window.location.origin;
+  console.log(ENDPOINT)
 
   const [formName, setFormUsername] = React.useState('');
   const [formRoom, setFormRoom] = React.useState('');

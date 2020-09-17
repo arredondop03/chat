@@ -5,6 +5,7 @@
     overflow: scroll;
     display: flex;
     height: 100%;
+    overflow: auto;
 }
 
 @media(max-width: 760px) {

@@ -18,6 +18,8 @@
 .users-list {
     height: calc(100% - 78px);
     overflow: scroll;
+    overflow-y: auto; 
+    overflow-x: hidden
 }
 
 .user-in-chat {

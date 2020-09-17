@@ -26,7 +26,6 @@ const Join = () => {
       return;
     }
     socket = io(ENDPOINT);
-    console.log(socket)
     socket.emit('join', { name: formName, room: formRoom }, (error) => { if (error) console.log(error); });
     context.setSocket(socket);
     context.setName(formName);

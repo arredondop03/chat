@@ -23,28 +23,21 @@ const Chat = ({ history }) => {
   const { socket, room, name } = context;
 
   useEffect(() => {
-    // if (socket.connected === true) {
-      console.log(socket)
+    if (socket.connected !== undefined) {
       socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
       socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));
-    // } else {
-      // console.log('ede')
-      // history.push('/')
-      // history.goBack();
-    // }
-
+    } else {
+      history.push('/')
+    }
+    
     return () => {
+      
       if (socket.connected) {
         socket.emit('disconnect');
         socket.off();
       }
     };
   }, [history, socket]);
-
-
-  useEffect(() => {
-console.log(messages)
-  }, messages)
 
   const sendMessage = (event) => {
     event.preventDefault();

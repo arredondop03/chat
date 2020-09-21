@@ -21,7 +21,6 @@ io.on('connection', (socket) => {
         const {error, user} = addUser({id: socket.id, name, room});
         const id = crypto.randomBytes(16).toString("hex");
         if(error) return callback(error);
-        console.log('cvfc')
 
         socket.emit('message', {id: id, sender: 'admin', text: `${user.name}, welcome to room ${user.room}`})
         socket.broadcast.to(user.room).emit('message', {id: id, sender: 'admin', text: `${user.name} has joined`});

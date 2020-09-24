@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -19,10 +19,10 @@ const Chat = ({ history }) => {
   const [usersInRoom, setUsersInRoom] = useState({});
   const [isShowingUsers, setIsShowingUsers] = useState(false);
 
-  const context = useContext(UserContext);
+  const context = React.useContext(UserContext);
   const { socket, room, name } = context;
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (socket.connected !== undefined) {
       socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
       socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));

@@ -48,7 +48,7 @@ const Chat = ({ history }) => {
 
   return (
     <div className="chat-shell">
-      <div className={`chat-users-container ${isShowingUsers ? 'show-users' : ''}`}>
+      <div className={`chat-users-container${isShowingUsers ? ' '+'show-users' : ''}`}>
         <UsersInRoom usersInRoom={usersInRoom.users} />
       </div>
       <div

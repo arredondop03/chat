@@ -9,7 +9,6 @@ const { addUser, removeUser, getUser, getUsersInRoom} = require('./users');
 const PORT = process.env.PORT || 5000;
 
 const router = require('./router');
-const { callbackify } = require('util');
 
 const app = express();
 const server = http.createServer(app);

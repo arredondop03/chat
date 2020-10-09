@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -10,12 +9,8 @@ import UserContext from '../../context/UserContext';
 
 import './Chat.css';
 
-// TODO: /* eslint-disable react/jsx-one-expression-per-line */
-// // TODO: pageobject for testing, beforeEach, afterEach
-
 const Chat = ({ history }) => {
-  const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
+  const [messages, setMessages] = React.useState([]);
   const [usersInRoom, setUsersInRoom] = useState({});
   const [isShowingUsers, setIsShowingUsers] = useState(false);
 
@@ -27,11 +22,9 @@ const Chat = ({ history }) => {
       socket.on('message', (messageFromServer) => setMessages((stateMessages) => [...stateMessages, messageFromServer]));
       socket.on('roomData', (usersFromServer) => setUsersInRoom(usersFromServer));
     } else {
-      history.push('/')
+      history.push('/');
     }
-    
     return () => {
-      
       if (socket.connected) {
         socket.emit('disconnect');
         socket.off();
@@ -39,16 +32,9 @@ const Chat = ({ history }) => {
     };
   }, [history, socket]);
 
-  const sendMessage = (event) => {
-    event.preventDefault();
-    if (message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
-    }
-  };
-
   return (
     <div className="chat-shell">
-      <div className={`chat-users-container${isShowingUsers ? ' '+'show-users' : ''}`}>
+      <div className={`chat-users-container${isShowingUsers ? ' show-users' : ''}`}>
         <UsersInRoom usersInRoom={usersInRoom.users} />
       </div>
       <div
@@ -70,7 +56,7 @@ const Chat = ({ history }) => {
           </div>
         </div>
         <Messages messages={messages} currentUser={name} />
-        <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+        <Input />
       </div>
     </div>
   );
@@ -80,6 +66,6 @@ export default Chat;
 
 Chat.propTypes = {
   history: PropTypes.shape({
-    goBack: PropTypes.func,
+    push: PropTypes.func,
   }).isRequired,
 };

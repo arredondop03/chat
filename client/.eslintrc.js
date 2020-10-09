@@ -22,5 +22,6 @@ module.exports = {
     'jest'
   ],
   rules: {
+    'react/jsx-one-expression-per-line': 0,
   },
 };

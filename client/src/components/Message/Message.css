@@ -37,6 +37,7 @@
 
 .message.message-fact-teller {
     color: white;
+    font-style: italic;
 }
 
 @media(max-width: 800px) {

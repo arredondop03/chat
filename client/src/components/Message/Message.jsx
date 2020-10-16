@@ -4,11 +4,8 @@ import PropTypes from 'prop-types';
 import './Message.css';
 
 const Message = ({ message: { text, sender }, currentUser }) => {
-  let isSentByCurrentUser = false;
   const trimmedCurrentUser = currentUser.trim().toLowerCase();
-  if (sender === trimmedCurrentUser) {
-    isSentByCurrentUser = true;
-  }
+  let isSentByCurrentUser = sender === trimmedCurrentUser;
 
   return (
     <div className={`message-container ${isSentByCurrentUser && 'message-user-container'}`}>

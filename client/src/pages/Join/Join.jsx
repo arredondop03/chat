@@ -41,8 +41,8 @@ const Join = () => {
       </div>
       <div className="join-left-container">
         <h1 className="join-header">Start chatting!</h1>
-        <input placeholder="Username" id="username" className="join-input" type="text" onChange={(event) => setFormUsername(event.target.value)} value={formName} />
-        <input placeholder="Room" id="room" className="join-input" type="text" onChange={(event) => setFormRoom(event.target.value)} />
+        <input autoComplete="off" placeholder="Username" id="username" className="join-input" type="text" onChange={(event) => setFormUsername(event.target.value)} value={formName} />
+        <input autoComplete="off" placeholder="Room" id="room" className="join-input" type="text" onChange={(event) => setFormRoom(event.target.value)} />
         <Link className="join-button" onClick={(event) => join(event)} to="/chat">Sign in</Link>
       </div>
     </div>

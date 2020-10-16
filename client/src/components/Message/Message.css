@@ -3,6 +3,9 @@
     margin-bottom: 5px;
 }
 
+.message-container.message-current-user {
+    margin-left: auto;
+}
 .message-box {
     background-attachment: fixed;
     background-color:#7CD7D2;
@@ -11,25 +14,29 @@
     border-radius: 20px;
 }
 
-.message-user-container {
-    margin-left: auto;
+.message-box.message-fact-teller {
+    background-attachment: inherit;
+    background-image: none;
+    background-color: #EE7A65;
 }
 
-.message-user-name {
+.sender-name {
+    margin-top: 5px;
+    font-size: 1em;
+    margin-left: 13px;
+}
+
+.sender-name.message-current-user {
     text-align: right;
     margin-right: 13px;
-    margin-top: 5px;
-    font-size: 1em;
-}
-
-.message-friend-name{
-    margin-left: 13px;
-    margin-top: 5px;
-    font-size: 1em;
 }
 
 .message {
     font-size: 1em;
+}
+
+.message.message-fact-teller {
+    color: white;
 }
 
 @media(max-width: 800px) {

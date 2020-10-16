@@ -5,14 +5,26 @@ import './Message.css';
 
 const Message = ({ message: { text, sender }, currentUser }) => {
   const trimmedCurrentUser = currentUser.trim().toLowerCase();
-  let isSentByCurrentUser = sender === trimmedCurrentUser;
+
+  let messageClassName;
+  switch (sender) {
+    case 'Random Fact Teller':
+      messageClassName = 'message-fact-teller';
+      break;
+    case trimmedCurrentUser:
+      messageClassName = 'message-current-user';
+      break;
+    default:
+      messageClassName = 'message-admin';
+      break;
+  }
 
   return (
-    <div className={`message-container ${isSentByCurrentUser && 'message-user-container'}`}>
-      <div className="message-box">
-        <p className="message">{text}</p>
+    <div className={`message-container ${messageClassName}`}>
+      <div className={`message-box ${messageClassName}`}>
+        <p className={`message ${messageClassName}`}>{text}</p>
       </div>
-      <p className={isSentByCurrentUser ? 'message-user-name' : 'message-friend-name'}>{isSentByCurrentUser ? trimmedCurrentUser : sender}</p>
+      <p className={`sender-name ${messageClassName}`}>{sender}</p>
     </div>
   );
 };

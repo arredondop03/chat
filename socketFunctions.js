@@ -6,14 +6,14 @@ const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 const onJoin = (socket, io) => {
     socket.on('join', async ({ name, room }, callback) => {
         const { error, user } = addUser({ id: socket.id, name, room });
-        const id = crypto.randomBytes(16).toString("hex");
+        socket.join(user.room);
         if (error) return callback(error);
 
+        const id = crypto.randomBytes(16).toString("hex");
         socket.emit('message', { id: id, sender: 'admin', text: `${user.name}, welcome to room ${user.room}` });
         socket.broadcast.to(user.room).emit('message', { id: id, sender: 'admin', text: `${user.name} has joined` });
-
-        socket.join(user.room);
-
+        io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+        
         if (getUsersInRoom(user.room).length === 2) {
             try {
                 const response = await axios.get('https://uselessfacts.jsph.pl/random.json?language=en');
@@ -23,8 +23,6 @@ const onJoin = (socket, io) => {
                 console.log(error);
             };
         }
-
-        io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
         callback();
     })
 }

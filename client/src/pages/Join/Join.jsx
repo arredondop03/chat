@@ -8,7 +8,7 @@ import UserContext from '../../context/UserContext';
 import youthIlustration from '../../assets/friends.svg';
 import shape from '../../assets/shape-1.svg';
 
-// <a href='https://www.freepik.com/vectors/social-media'>Social media vector created by stories - www.freepik.com</a>
+// <a href='https://www.freepik.com/vectors/social-media'>Social media vector created by stories - www.freepik.com</a> 
 // abstract <a href='https://www.freepik.com/vectors/banner'>Banner vector created by freepik - www.freepik.com</a>
 
 const Join = () => {
@@ -25,7 +25,9 @@ const Join = () => {
       event.preventDefault();
       return;
     }
-    socket = io(ENDPOINT);
+    socket = io(ENDPOINT, {
+      reconnection: false,
+    });
     socket.emit('join', { name: formName, room: formRoom }, (error) => { if (error) console.log(error); });
     context.setSocket(socket);
     context.setName(formName);

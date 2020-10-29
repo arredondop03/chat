@@ -7,4 +7,6 @@ export default createContext({
   setRoom: () => {},
   socket: {},
   setSocket: () => {},
+  showModal: null,
+  setShowModal: () => {},
 });

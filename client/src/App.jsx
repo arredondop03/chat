@@ -10,10 +10,11 @@ const App = () => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [socket, setSocket] = useState({});
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <UserContext.Provider value={{
-      name, setName, room, setRoom, socket, setSocket,
+      name, setName, room, setRoom, socket, setSocket, showModal, setShowModal
     }}
     >
       <Router>

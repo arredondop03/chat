@@ -1,0 +1,35 @@
+.modal {
+    position: absolute;
+}
+
+.modal-container {
+    background-color: whitesmoke;
+    position: relative;
+    width: 500px;
+    height: 300px;
+    border-radius: 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.modal-title {
+    margin: 0;
+    text-align: center;
+}
+
+.modal-close-button {
+    border: none;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 32px;
+    right: 34px;
+}
+
+.modal-close-button > img {
+    width: 20px;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 
 import './Join.css';
@@ -7,13 +7,14 @@ import './Join.css';
 import UserContext from '../../context/UserContext';
 import youthIlustration from '../../assets/friends.svg';
 import shape from '../../assets/shape-1.svg';
+import Modal from '../../components/Modal/Modal';
 
 // <a href='https://www.freepik.com/vectors/social-media'>Social media vector created by stories - www.freepik.com</a> 
 // abstract <a href='https://www.freepik.com/vectors/banner'>Banner vector created by freepik - www.freepik.com</a>
 
-const Join = () => {
+const Join = ({history}) => {
   let socket;
-  const ENDPOINT = process.env.NODE_ENV === 'production' ? window.location.origin : 'localhost:5000';
+  const ENDPOINT = process.env.NODE_ENV === 'production' ? window.location.origin : 'localhost:5001';
 
   const [formName, setFormUsername] = React.useState('');
   const [formRoom, setFormRoom] = React.useState('');
@@ -32,6 +33,9 @@ const Join = () => {
     context.setSocket(socket);
     context.setName(formName);
     context.setRoom(formRoom);
+    socket.on('connect_error', (error) => {
+      context.setShowModal(true);
+    })
   };
 
   return (
@@ -45,8 +49,11 @@ const Join = () => {
         <h1 className="join-header">Start chatting!</h1>
         <input autoComplete="off" placeholder="Username" id="username" className="join-input" type="text" onChange={(event) => setFormUsername(event.target.value)} value={formName} />
         <input autoComplete="off" placeholder="Room" id="room" className="join-input" type="text" onChange={(event) => setFormRoom(event.target.value)} />
-        <Link className="join-button" onClick={(event) => join(event)} to="/chat">Sign in</Link>
+        <button className="join-button" onClick={(event) => join(event)}>Sign in</button>
       </div>
+      {context.showModal && <div className="join-overlay"/>}
+      {context.showModal && <Modal />}
+      
     </div>
   );
 };

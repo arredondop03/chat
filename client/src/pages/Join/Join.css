@@ -79,6 +79,14 @@
     color: #455a63;
     font-size: 40px;
 }
+.join-overlay {
+    background-color: rgb(124 215 210 / 72%);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 
 /* overflow-y: scroll; */
 /* height: 1024px; */
@@ -99,7 +107,6 @@
 @media(max-width: 1024px) and (max-height: 800px) {
     .join-container {
         height: 1024px;
-        overflow-y: auto;
     }
 }
 

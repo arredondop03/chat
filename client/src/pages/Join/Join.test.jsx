@@ -1,55 +1,94 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useContext } from 'react';
 import { shallow } from 'enzyme';
 import io from 'socket.io-client';
 import Join from './Join';
 import UserContext from '../../context/UserContext';
 
-jest.mock('socket.io-client');
-jest.mock('../../context/UserContext');
+jest.mock('socket.io-client', () => {
+  const emit = jest.fn();
+  const on = jest.fn();
+  const socket = { emit, on };
+  return jest.fn(() => socket);
+});
+
+jest.mock('../../context/UserContext', () => {
+  const socket = { 
+    showModal: false,
+    setShowModal: jest.fn(),
+    setSocket: jest.fn(),
+    setName: jest.fn(),
+    setRoom: jest.fn(),
+  };
+  return socket;
+});
 
 describe('Join', () => {
+  let useContextSpy;
+  beforeEach(() => {
+    useContextSpy = jest.spyOn(React, 'useContext');
+    useContextSpy.mockImplementationOnce(() => UserContext);
+  });
+
+  afterEach(() => {
+    useContextSpy.mockRestore();
+  })
+
   it('renders without crashing', () => {
-    const wrapper = shallow(<Join />);
+    //Act
+    const wrapper = shallow(<Join history={{ push: jest.fn() }} />);
+
+    //Assert
     expect(wrapper).toHaveLength(1);
   });
 
   it('calls setState when changing username input', () => {
+    //Arrange
     const setFormUsername = jest.fn();
     const useStateSpy = jest.spyOn(React, 'useState');
     useStateSpy.mockImplementation((init) => [init, setFormUsername]);
-    const joinWrapper = shallow(<Join />);
-    joinWrapper.find('#username').simulate('change', { target: { value: 'MyUsername' } });
+
+    //Act
+    const wrapper = shallow(<Join history={{ push: jest.fn() }} />);
+    wrapper.find('#username').simulate('change', { target: { value: 'MyUsername' } });
+
+    //Assert
     expect(setFormUsername).toHaveBeenCalledWith('MyUsername');
     expect(setFormUsername).toHaveBeenCalledTimes(1);
     useStateSpy.mockRestore();
   });
 
   it('calls setState when changing room input', () => {
+    //Arrange
     const setFormRoom = jest.fn();
     const useStateSpy = jest.spyOn(React, 'useState');
     useStateSpy.mockImplementation((init) => [init, setFormRoom]);
-    const joinWrapper = shallow(<Join />);
-    joinWrapper.find('#room').simulate('change', { target: { value: '1' } });
+
+    //Act
+    const wrapper = shallow(<Join history={{ push: jest.fn() }} />);
+    wrapper.find('#room').simulate('change', { target: { value: '1' } });
+
+    //Assert
     expect(setFormRoom).toHaveBeenCalledWith('1');
     expect(setFormRoom).toHaveBeenCalledTimes(1);
     useStateSpy.mockRestore();
   });
 
   it('calls preventDefault when no username or room exists', () => {
+    //Arrange
     const preventDefaultSpy = jest.fn();
     const event = { preventDefault: preventDefaultSpy };
-    const joinWrapper = shallow(<Join />);
-    joinWrapper.find('Link').simulate('click', event);
+
+    //Act
+    const wrapper = shallow(<Join history={{ push: jest.fn() }} />);
+    wrapper.find('.join-button').simulate('click', event);
+
+    //Assert
     expect(preventDefaultSpy).toHaveBeenCalledTimes(1);
   });
 
   it('calls all functions inside join', () => {
-    const useContextSpy = jest.spyOn(React, 'useContext');
-    useContextSpy.mockImplementationOnce(() => UserContext);
-
-    const mockEmit = jest.fn();
-    io.mockImplementationOnce(() => ({ emit: mockEmit }));
-
+    //Arrange
     const event = { preventDefault: jest.fn() };
     const setFormRoom = jest.fn();
     const setFormUsername = jest.fn();
@@ -59,19 +98,20 @@ describe('Join', () => {
     useStateSpy.mockImplementationOnce(() => ['4434', setFormRoom]);
 
     // Act
-    const joinWrapper = shallow(<Join />);
-    joinWrapper.find('Link').simulate('click', event);
+    const wrapper = shallow(<Join history={{ push: jest.fn() }} />);
+    wrapper.find('.join-button').simulate('click', event);
 
     // Assert
-    expect(useContextSpy).toHaveBeenCalledWith(UserContext);
-    expect(io).toHaveBeenCalledWith('localhost:5000');
-    expect(mockEmit).toHaveBeenCalledWith('join', { name: 'paola', room: '4434' }, expect.any(Function));
+    expect(io).toHaveBeenCalledWith('localhost:5000', { reconnection: false });
+    expect(io().emit).toHaveBeenCalledWith('join', { name: 'paola', room: '4434' }, expect.any(Function));
     expect(UserContext.setName).toHaveBeenCalledWith('paola');
     expect(UserContext.setRoom).toHaveBeenCalledWith('4434');
-    expect(UserContext.setSocket).toHaveBeenCalledWith({ emit: mockEmit });
-
+    expect(UserContext.setSocket).toHaveBeenCalledWith(
+      expect.objectContaining({ emit: expect.any(Function), on: expect.any(Function) },)
+    );
+    expect(UserContext.setSocket).toHaveBeenCalledWith(io());
+ 
     // clear mocks
-    useContextSpy.mockRestore();
     useStateSpy.mockRestore();
     io.mockRestore();
   });

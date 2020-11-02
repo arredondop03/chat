@@ -1,25 +1,28 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
+import PropTypes from 'prop-types';
 
 import './Join.css';
 
-import UserContext from '../../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 import youthIlustration from '../../assets/friends.svg';
 import shape from '../../assets/shape-1.svg';
 import Modal from '../../components/Modal/Modal';
 
-// <a href='https://www.freepik.com/vectors/social-media'>Social media vector created by stories - www.freepik.com</a> 
-// abstract <a href='https://www.freepik.com/vectors/banner'>Banner vector created by freepik - www.freepik.com</a>
-
-const Join = ({history}) => {
+const Join = ({ history }) => {
   let socket;
-  const ENDPOINT = process.env.NODE_ENV === 'production' ? window.location.origin : 'localhost:5001';
+  const ENDPOINT = process.env.NODE_ENV === 'production' ? window.location.origin : 'localhost:5000';
 
   const [formName, setFormUsername] = React.useState('');
   const [formRoom, setFormRoom] = React.useState('');
 
-  const context = React.useContext(UserContext);
+  const {
+    showModal,
+    setShowModal,
+    setSocket,
+    setName,
+    setRoom,
+  } = React.useContext(UserContext);
 
   const join = (event) => {
     if (!formName || !formRoom) {
@@ -30,12 +33,18 @@ const Join = ({history}) => {
       reconnection: false,
     });
     socket.emit('join', { name: formName, room: formRoom }, (error) => { if (error) console.log(error); });
-    context.setSocket(socket);
-    context.setName(formName);
-    context.setRoom(formRoom);
-    socket.on('connect_error', (error) => {
-      context.setShowModal(true);
-    })
+    setSocket(socket);
+    setName(formName);
+    setRoom(formRoom);
+    socket.on('connect_error', () => {
+      setShowModal(true);
+    });
+    socket.on('error', () => {
+      setShowModal(true);
+    });
+    socket.on('connect', () => {
+      history.push('/chat');
+    });
   };
 
   return (
@@ -49,13 +58,18 @@ const Join = ({history}) => {
         <h1 className="join-header">Start chatting!</h1>
         <input autoComplete="off" placeholder="Username" id="username" className="join-input" type="text" onChange={(event) => setFormUsername(event.target.value)} value={formName} />
         <input autoComplete="off" placeholder="Room" id="room" className="join-input" type="text" onChange={(event) => setFormRoom(event.target.value)} />
-        <button className="join-button" onClick={(event) => join(event)}>Sign in</button>
+        <button type="button" className="join-button" onClick={(event) => join(event)}>Sign in</button>
       </div>
-      {context.showModal && <div className="join-overlay"/>}
-      {context.showModal && <Modal />}
-      
+      {showModal && <div className="join-overlay" />}
+      {showModal && <Modal />}
     </div>
   );
 };
 
 export default Join;
+
+Join.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};

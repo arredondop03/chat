@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Input from '../../components/Input/Input';
 import Messages from '../../components/Messages/Messages';
 import UsersInRoom from '../../components/UsersInRoom/UsersInRoom';
-import UserContext from '../../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 
 import './Chat.css';
 

@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import cancel from '../../assets/cancel.svg';
-import UserContext from '../../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 import './Modal.css';
 
 const Modal = () => {
-  const context = useContext(UserContext);
+  const context = React.useContext(UserContext);
 
   return (
     <div className="modal">

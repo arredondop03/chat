@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import UserContext from './context/UserContext';
+import { UserContext } from './context/UserContext';
 import Join from './pages/Join/Join';
 import Chat from './pages/Chat/Chat';
 
@@ -14,7 +14,7 @@ const App = () => {
 
   return (
     <UserContext.Provider value={{
-      name, setName, room, setRoom, socket, setSocket, showModal, setShowModal
+      name, setName, room, setRoom, socket, setSocket, showModal, setShowModal,
     }}
     >
       <Router>

@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export default createContext({
+export const UserContext = createContext({
   name: '',
   setName: () => {},
   room: '',

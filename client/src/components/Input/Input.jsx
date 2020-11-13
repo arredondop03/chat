@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UserContext from '../../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 import sendIcon from '../../assets/send.svg';
 import './Input.css';
 

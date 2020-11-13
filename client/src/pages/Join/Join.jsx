@@ -15,6 +15,7 @@ const Join = ({ history }) => {
 
   const [formName, setFormUsername] = React.useState('');
   const [formRoom, setFormRoom] = React.useState('');
+  const [error, setError] = React.useState('');
 
   const {
     showModal,
@@ -29,22 +30,32 @@ const Join = ({ history }) => {
       event.preventDefault();
       return;
     }
+
     socket = io(ENDPOINT, {
       reconnection: false,
     });
-    socket.emit('join', { name: formName, room: formRoom }, (error) => { if (error) console.log(error); });
-    setSocket(socket);
-    setName(formName);
-    setRoom(formRoom);
+
+    socket.emit('join', { name: formName, room: formRoom }, function(error) { 
+      if (error) {
+      setError(error);
+      return;
+      }
+    });
+
     socket.on('connect_error', () => {
       setShowModal(true);
     });
+
     socket.on('error', () => {
       setShowModal(true);
     });
-    socket.on('connect', () => {
+
+    socket.on('login_successful', () => {
+      setSocket(socket);
+      setName(formName);
+      setRoom(formRoom);
       history.push('/chat');
-    });
+    })
   };
 
   return (
@@ -56,8 +67,9 @@ const Join = ({ history }) => {
       </div>
       <div className="join-left-container">
         <h1 className="join-header">Start chatting!</h1>
+        {error && <p>{error}</p>}
         <input autoComplete="off" placeholder="Username" id="username" className="join-input" type="text" onChange={(event) => setFormUsername(event.target.value)} value={formName} />
-        <input autoComplete="off" placeholder="Room" id="room" className="join-input" type="text" onChange={(event) => setFormRoom(event.target.value)} />
+        <input autoComplete="off" placeholder="Room" id="room" className="join-input" type="text" onChange={(event) => setFormRoom(event.target.value)}  value={formRoom} />
         <button type="button" className="join-button" onClick={(event) => join(event)}>Sign in</button>
       </div>
       {showModal && <div className="join-overlay" />}

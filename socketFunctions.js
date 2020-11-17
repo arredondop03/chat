@@ -1,18 +1,20 @@
 const axios = require('axios');
-const crypto = require('crypto');
 const logger = require('pino')();
+const generateId = require('./utils');
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 
 const onJoin = (socket, io) => {
     socket.on('join', async ({ name, room }, callback) => {
-        const { error, user } = addUser({ id: socket.id, name, room });
-        socket.join(user.room);
-        if (error) return callback(error);
+        const { error, user } = addUser({ id: socket.id, name, room }); 
 
-        const id = crypto.randomBytes(16).toString('hex');
-        socket.emit('message', { id: id, sender: 'admin', text: `${user.name}, welcome to room ${user.room}` });
-        socket.broadcast.to(user.room).emit('message', { id: id, sender: 'admin', text: `${user.name} has joined` });
+        if (error) return callback(error);
+        
+        socket.join(user.room);
+        socket.emit('login_successful')
+
+        socket.emit('message', { id: generateId(), sender: 'admin', text: `${user.name}, welcome to room ${user.room}` });
+        socket.broadcast.to(user.room).emit('message', { id: generateId(), sender: 'admin', text: `${user.name} has joined` });
         io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
 
         if (getUsersInRoom(user.room).length === 2) {
@@ -31,8 +33,7 @@ const onJoin = (socket, io) => {
 const onSendMessage = (socket, io) => {
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id)
-        const id = crypto.randomBytes(16).toString('hex');
-        io.to(user.room).emit('message', { id: id, sender: user.name, text: message })
+        io.to(user.room).emit('message', { id: generateId(), sender: user.name, text: message })
 
         callback();
     })
@@ -43,7 +44,7 @@ const onDisconnect = (socket, io) => {
         const user = removeUser(socket.id);
         if (user) {
             io.to(user.room)
-            .emit('message', { sender: 'admin', text: `${user.name} has left` })
+            .emit('message', { id: generateId(), sender: 'admin', text: `${user.name} has left` })
             .emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
         }
     })

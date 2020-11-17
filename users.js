@@ -14,8 +14,6 @@ const addUser = ({ id, name, room }) => {
     users.push(user);
 
     return { user }
-
-
 }
 
 const removeUser = (id) => {
